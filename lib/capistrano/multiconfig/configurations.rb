@@ -39,12 +39,12 @@ Capistrano::Configuration.instance.load do
       desc "Load #{config_name} configuration"
       task(task_name) do
         # set configuration name as :config_name variable
-        self.set(:config_name, config_name)
+        top.set(:config_name, config_name)
 
         # recursively load configurations
         segments.size.times do |i|
           path = ([config_root] + segments[0..i]).join('/') + '.rb'
-          self.load(path) if File.exists?(path)
+          top.load(:file => path) if File.exists?(path)
         end
       end
     end
