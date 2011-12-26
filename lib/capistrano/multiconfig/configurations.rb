@@ -32,8 +32,10 @@ Capistrano::Configuration.instance.load do
     namespace_names = segments[0, segments.size - 1]
     task_name = segments.last
 
-    # create configuration task block
-    block = lambda do
+    # create configuration task block.
+    # NOTE: Capistrano 'namespace' DSL invokes instance_eval that
+    # that pass evaluable object as argument to block.
+    block = lambda do |parent|
       desc "Load #{config_name} configuration"
       task(task_name) do
         # set configuration name as :config_name variable
@@ -48,14 +50,39 @@ Capistrano::Configuration.instance.load do
     end
 
     # wrap task block into namespace blocks
+    #
+    # namespace_names = [nsN, ..., ns2, ns1]
+    #
+    # block = block0 = lambda do |parent|
+    #   desc "DESC"
+    #   task(:task_name) { TASK }
+    # end
+    # block = block1 = lambda { |parent| parent.namespace(:ns1, &block0) }
+    # block = block2 = lambda { |parent| parent.namespace(:ns2, &block1) }
+    # ...
+    # block = blockN = lambda { |parent| parent.namespace(:nsN, &blockN-1) }
+    #
     block = namespace_names.reverse.inject(block) do |child, name|
-      lambda do
-        namespace(name, &child)
+      lambda do |parent|
+        parent.namespace(name, &child)
       end
     end
 
-    # create configuration task
-    block.call
+    # create namespaced configuration task
+    #
+    # block = lambda do
+    #   namespace :nsN do
+    #     ...
+    #     namespace :ns2 do
+    #       namespace :ns1 do
+    #         desc "DESC"
+    #         task(:task_name) { TASK }
+    #       end
+    #     end
+    #     ...
+    #   end
+    # end
+    block.call(top)
   end
 
   # set configuration names list
