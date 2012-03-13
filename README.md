@@ -13,7 +13,7 @@ Each configuration loads recursively configuration from it namespace files and o
 
 Install gem
 
-    $ gem install capistrano-multistage
+    $ gem install capistrano-multiconfig
 
 
 Add to `Capfile`
