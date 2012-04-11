@@ -1,3 +1,5 @@
+require 'JSON'
+
 Capistrano::Configuration.instance.load do
   # configurations root directory
   config_root = File.expand_path(fetch(:config_root, "config/deploy"))
@@ -32,12 +34,23 @@ Capistrano::Configuration.instance.load do
     namespace_names = segments[0, segments.size - 1]
     task_name = segments.last
 
+    # Provide ability to add task options via equivalently named JSON file
+    task_options_file = ([config_root] + segments).join('/') + '.json'
+    begin
+      task_def = JSON.parse(File.read(task_options_file), :symbolize_names => true) if File.exists?(task_options_file)
+    rescue JSON::ParserError
+      raise SyntaxError, "Your JSON file (#{task_options_file}) does not parse"
+     end
+    task_def ||= {}
+    task_def[:options] = {} unless task_def.key?(:options)
+    task_def[:description] = "Load #{config_name} configuration" unless task_def.key?(:description)
+
     # create configuration task block.
     # NOTE: Capistrano 'namespace' DSL invokes instance_eval that
     # that pass evaluable object as argument to block.
     block = lambda do |parent|
-      desc "Load #{config_name} configuration"
-      task(task_name) do
+      desc task_def[:description]
+      task(task_name, task_def[:options]) do
         # set configuration name as :config_name variable
         top.set(:config_name, config_name)
 
