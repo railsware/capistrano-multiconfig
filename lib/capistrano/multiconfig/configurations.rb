@@ -35,8 +35,12 @@ Capistrano::Configuration.instance.load do
     task_name = segments.last
 
     # Provide ability to add task options via equivalently named JSON file
-    task_options_file = ([config_root] + segments[0..i]).join('/') + '.json'
-    task_def = JSON.parse(File.read(task_options_file), :symbolize_names => true) if File.exists?(task_options_file)
+    task_options_file = ([config_root] + segments).join('/') + '.json'
+    begin
+      task_def = JSON.parse(File.read(task_options_file), :symbolize_names => true) if File.exists?(task_options_file)
+    rescue JSON::ParserError
+      raise SyntaxError, "Your JSON file (#{task_options_file}) does not parse"
+     end
     task_def ||= {}
     task_def[:options] = {} unless task_def.key?(:options)
     task_def[:description] = "Load #{config_name} configuration" unless task_def.key?(:description)
