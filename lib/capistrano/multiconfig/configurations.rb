@@ -1,4 +1,4 @@
-Capistrano::Configuration.instance.load do
+Capistrano::Configuration.instance(true).load do
   # configurations root directory
   config_root = File.expand_path(fetch(:config_root, "config/deploy"))
 

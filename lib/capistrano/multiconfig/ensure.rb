@@ -1,4 +1,4 @@
-Capistrano::Configuration.instance.load do
+Capistrano::Configuration.instance(true).load do
   namespace :multiconfig do
     desc "[internal] Ensure that a configuration has been selected"
     task :ensure do
