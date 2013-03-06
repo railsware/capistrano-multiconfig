@@ -88,3 +88,8 @@ For example for *:config_root* `config/deploy` task `cap apps/blog/qa.rb` loads 
 * config/deploy/apps/blog/qa.rb
 
 So it's easy to put shared configuration.
+
+## License
+
+* Copyright (c) 2013 Railsware [www.railsware.com](http://www.railsware.com)
+* [MIT](www.opensource.org/licenses/MIT)
