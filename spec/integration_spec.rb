@@ -87,6 +87,14 @@ TEXT
           subject.should == "hello from level0 level1 world\n"
       end
     end
+
+    context "configuration with root and nested" do
+      let(:config_root) { 'config/root_with_nested' }
+      subject { run_cap("app:config hello_world") }
+      it "should display nested message from root" do
+        subject.should == "hello from root world\n"
+      end
+    end
   end
 
 end

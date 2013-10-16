@@ -9,11 +9,20 @@ config_names = Capistrano::Multiconfig::Configurations.find_names(config_root_pa
 config_names.each do |config_name|
   Rake::Task.define_task(config_name) do
     set(:config_name, config_name)
-    segments = config_name.split(":")
-    segments.size.times do |i|
-      path = File.join([config_root_path] + segments[0..i]) + '.rb'
-      load(path) if File.exists?(path)
+
+    load "capistrano/defaults.rb"
+
+    paths = [ config_root_path + '.rb' ]
+
+    (segments = config_name.split(":")).size.times do |i|
+      paths << File.join([config_root_path] + segments[0..i]) + '.rb'
     end
+
+    paths.each { |path| load(path) if File.exists?(path) }
+
+    load "capistrano/#{fetch(:scm)}.rb"
+    I18n.locale = fetch(:locale, :en)
+    configure_backend
   end.add_description("Load #{config_name} configuration")
 end
 
