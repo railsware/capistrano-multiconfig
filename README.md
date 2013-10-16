@@ -21,6 +21,14 @@ Add to `Capfile`
     set :config, 'path/to/your/configurations'
     require 'capistrano/multiconfig'
 
+## Capistrano3
+
+Use multiconfig v3.x.x
+
+## Capistrano2
+
+For legacy capistrano v2.x.x use multiconfig gem v0.0.x
+
 ## Example
 
 Assume we need next configurations:
@@ -88,6 +96,12 @@ For example for *:config_root* `config/deploy` task `cap apps/blog/qa.rb` loads 
 * config/deploy/apps/blog/qa.rb
 
 So it's easy to put shared configuration.
+
+
+## Testing
+
+    $ bundle install
+    $ rspec -fs spec
 
 ## License
 

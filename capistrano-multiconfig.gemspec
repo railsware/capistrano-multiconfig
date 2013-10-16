@@ -3,7 +3,7 @@ $:.push File.expand_path("../lib", __FILE__)
 
 Gem::Specification.new do |s|
   s.name        = "capistrano-multiconfig"
-  s.version     = "0.0.4"
+  s.version     = "3.0.0"
   s.authors     = ["Andriy Yanko"]
   s.email       = ["andriy.yanko@gmail.com"]
   s.homepage    = "https://github.com/railsware/multiconfig"
@@ -22,5 +22,5 @@ Each configuration loads recursively configuration from namespace files and own 
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
-  s.add_runtime_dependency "capistrano", ">=2.5.5"
+  s.add_runtime_dependency "capistrano", ">=3.0.0"
 end

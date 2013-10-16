@@ -1,0 +1,7 @@
+set :config_root, ENV.fetch('CONFIG_ROOT')
+
+require 'capistrano/multiconfig'
+
+task :hello_world do
+  puts fetch(:message, "hello")
+end
