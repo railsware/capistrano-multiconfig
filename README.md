@@ -9,6 +9,11 @@ But it's not only about 'stage' configurations. It's about any configuration tha
 Extension recursively builds configuration list from configuration root directory.
 Each configuration loads recursively configuration from it namespace files and own configuration file.
 
+## Purpose
+
+Extension was specially created to implement [Caphub](https://github.com/railsware/caphub) concept.
+[Read more](http://railsware.com/blog/2011/11/18/caphub-multiple-applications-deployment-with-capistrano/).
+
 ## Usage
 
 Install gem
@@ -107,3 +112,9 @@ So it's easy to put shared configuration.
 
 * Copyright (c) 2013 Railsware [www.railsware.com](http://www.railsware.com)
 * [MIT](www.opensource.org/licenses/MIT)
+
+## References
+
+* [capistrano](https://github.com/capistrano/capistrano)
+* [caphub](https://github.com/railsware/caphub)
+
