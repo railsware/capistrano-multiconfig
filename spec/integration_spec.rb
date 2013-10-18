@@ -1,7 +1,7 @@
 describe "integration" do
   def run_cap(args)
     Dir.chdir 'fixtures' do
-      `env CONFIG_ROOT=#{config_root} bundle exec cap #{args}`
+      `env STAGES_ROOT=#{stages_root} bundle exec cap #{args}`
     end
   end
 
@@ -10,8 +10,13 @@ describe "integration" do
       run_cap("-T")
     end
 
+    context "empty root" do
+      let(:stages_root) { 'config/empty' }
+      it { should == "" }
+    end
+
     context "two files root" do
-      let(:config_root) { "config/two_files" }
+      let(:stages_root) { 'config/two_files' }
 
       it "should display configurations" do
         subject.should == <<-TEXT
@@ -21,24 +26,90 @@ TEXT
       end
     end
 
-    context "third level nested root" do
-      let(:config_root) { "config/third_level_nested" }
+    context "root with nested directory and two files inside" do
+      let(:stages_root) { 'config/nested' }
+      it {
+        should == <<-TEXT
+cap app:production  # Load app:production configuration
+cap app:staging     # Load app:staging configuration
+TEXT
+      }
+    end
 
-      it "should display configurations" do
-        subject.should == <<-TEXT
+    context "root with two nested directories and two files inside" do
+      let(:stages_root) { 'config/two_nested' }
+      it {
+        should == <<-TEXT
+cap api:production  # Load api:production configuration
+cap api:staging     # Load api:staging configuration
+cap app:production  # Load app:production configuration
+cap app:staging     # Load app:staging configuration
+TEXT
+      }
+    end
+
+    context "root nested with shared file" do
+      let(:stages_root) { 'config/nested_with_shared_file' }
+      it {
+        should == <<-TEXT
+cap app:production  # Load app:production configuration
+cap app:staging     # Load app:staging configuration
+TEXT
+      }
+    end
+
+    context "root nested with another file" do
+      let(:stages_root) { 'config/nested_with_another_file' }
+      it {
+        should == <<-TEXT
+cap app:production  # Load app:production configuration
+cap app:staging     # Load app:staging configuration
+cap deploy          # Load deploy configuration
+TEXT
+      }
+    end
+
+    context "root nested with shared and another file" do
+      let(:stages_root) { 'config/nested_with_shared_and_another_file' }
+      it {
+        should == <<-TEXT
+cap app:production  # Load app:production configuration
+cap app:staging     # Load app:staging configuration
+cap deploy          # Load deploy configuration
+TEXT
+      }
+    end
+
+    context "root with foreign file" do
+      let(:stages_root) { 'config/with_foreign_file' }
+      it {
+        should == <<-TEXT
+cap production  # Load production configuration
+cap staging     # Load staging configuration
+TEXT
+      }
+    end
+
+    context "third level nested root" do
+      let(:stages_root) { "config/third_level_nested" }
+
+      it  {
+        should == <<-TEXT
 cap app:blog:production  # Load app:blog:production configuration
 cap app:blog:staging     # Load app:blog:staging configuration
 cap app:wiki:production  # Load app:wiki:production configuration
 cap app:wiki:qa          # Load app:wiki:qa configuration
 TEXT
-      end
+      }
     end
   end
+
+
 
   describe "task invocation" do
 
     context "sample configurations" do
-      let(:config_root) { 'config/sample' }
+      let(:stages_root) { 'config/sample' }
 
       context "without configuration" do
         subject { run_cap("hello_world") }
@@ -65,7 +136,7 @@ TEXT
     end
 
     context "configurations with shared file" do
-      let(:config_root) { 'config/nested_with_shared_file' }
+      let(:stages_root) { 'config/nested_with_shared_file' }
       context "with app:production" do
         subject { run_cap("app:production hello_world") }
         it "should display certain message" do
@@ -81,7 +152,7 @@ TEXT
     end
 
     context "configuration with double nested shared file" do
-      let(:config_root) { 'config/double_nested_shared_file' }
+      let(:stages_root) { 'config/double_nested_shared_file' }
       subject { run_cap("level0:level1:config hello_world") }
       it "should display nested message from all levels" do
           subject.should == "hello from level0 level1 world\n"
@@ -89,7 +160,7 @@ TEXT
     end
 
     context "configuration with root and nested" do
-      let(:config_root) { 'config/root_with_nested' }
+      let(:stages_root) { 'config/root_with_nested' }
       subject { run_cap("app:config hello_world") }
       it "should display nested message from root" do
         subject.should == "hello from root world\n"

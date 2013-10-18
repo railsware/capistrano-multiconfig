@@ -56,7 +56,6 @@ Create configuration files:
 
 Add to `Capfile`:
 
-    set :config_root, 'config/deploy'
     require 'capistrano/multiconfig'
 
 Put related capistrano configuration to each file according to file meaning.
@@ -94,7 +93,7 @@ So we must provide configuration as first task:
 Configuration task loads not only configuration associated with it filename.
 It also recursively load configurations from all namespaces.
 
-For example for *:config_root* `config/deploy` task `cap apps/blog/qa.rb` loads with **order** next configuration files (if they exist):
+For example task `cap apps/blog/qa.rb` loads with **order** next configuration files (if they exist):
 
 * config/deploy/apps.rb
 * config/deploy/apps/blog.rb
@@ -102,6 +101,12 @@ For example for *:config_root* `config/deploy` task `cap apps/blog/qa.rb` loads 
 
 So it's easy to put shared configuration.
 
+## Custom stages configuration location
+
+Specify in `Capfile`:
+
+    set :stages_root, 'deployment'
+    require 'capistrano/multiconfig'
 
 ## Testing
 

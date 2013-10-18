@@ -1,7 +1,9 @@
-set :config_root, ENV.fetch('CONFIG_ROOT')
+set :stages_root, ENV.fetch('STAGES_ROOT')
 
 require 'capistrano/multiconfig'
 
 task :hello_world do
   puts fetch(:message, "hello")
 end
+
+# vim syntax=ruby
