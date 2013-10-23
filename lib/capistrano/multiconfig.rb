@@ -3,6 +3,12 @@ require 'capistrano/multiconfig/dsl'
 include Capistrano::DSL
 include Capistrano::Multiconfig::DSL
 
+namespace :load do
+  task :defaults do
+    load 'capistrano/defaults.rb'
+  end
+end
+
 stages.each do |stage|
   Rake::Task.define_task(stage) do
 
@@ -10,7 +16,7 @@ stages.each do |stage|
     set(:stage, stage)
 
     # Load defaults variables
-    load "capistrano/defaults.rb"
+    invoke 'load:defaults'
 
     # Load stage configuration(s).
     #
