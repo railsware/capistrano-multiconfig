@@ -21,18 +21,26 @@ Install gem
     $ gem install capistrano-multiconfig
 
 
-Add to `Capfile`
-
-    set :config, 'path/to/your/configurations'
-    require 'capistrano/multiconfig'
-
 ## Capistrano3
 
 Use multiconfig v3.x.x
 
+Replace `capistrano/setup` with `capistrano/multiconfig` in your `Capfile`:
+
+    # set :stages_root, 'config/deploy'
+    require 'capistrano/multiconfig'
+
+Optionally you may set another path to your multistages configurations with *:stages_root*.
+
 ## Capistrano2
 
 For legacy capistrano v2.x.x use multiconfig gem v0.0.x
+
+Add to `Capfile`
+
+    set :config_root, 'path/to/your/configurations'
+    require 'capistrano/multiconfig'
+
 
 ## Example
 
