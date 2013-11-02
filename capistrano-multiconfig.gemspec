@@ -14,8 +14,7 @@ But it's not only about 'stage' configurations. It's about any configuration tha
 Extension recursively builds configuration list from configuration root directory.
 Each configuration loads recursively configuration from namespace files and own configuration file.
   }
-
-  s.rubyforge_project = "capistrano-multiconfig"
+  s.license     = "MIT"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
