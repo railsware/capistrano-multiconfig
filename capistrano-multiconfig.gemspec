@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.version     = "3.0.5"
   s.authors     = ["Andriy Yanko"]
   s.email       = ["andriy.yanko@gmail.com"]
-  s.homepage    = "https://github.com/railsware/multiconfig"
+  s.homepage    = "https://github.com/railsware/capistrano-multiconfig"
   s.summary     = %q{Capistrano extension that allows to use multiple configurations}
   s.description = %q{
 Multiconfig extension is similar to [multistage](https://github.com/capistrano/capistrano-ext) extenstion.
