@@ -1,6 +1,6 @@
 # capistrano-multiconfig
 
-[![Build Status](https://travis-ci.org/railsware/capistrano-multiconfig.png?branch=master)](https://travis-ci.org/railsware/capistrano-multiconfig)
+[![Build Status](https://travis-ci.org/railsware/capistrano-multiconfig.png)](https://travis-ci.org/railsware/capistrano-multiconfig)
 
 ## Description
 
