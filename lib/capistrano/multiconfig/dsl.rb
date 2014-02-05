@@ -39,7 +39,7 @@ module Capistrano
           file.slice(stages_root.size + 1 .. -4).tr('/', ':')
         }.tap { |paths|
           paths.reject! { |path|
-            paths.any? { |another| another != path && another.start_with?(path) }
+            paths.any? { |another| another != path && another.eql?(path) }
           }
         }.sort
       end
