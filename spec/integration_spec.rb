@@ -26,6 +26,17 @@ TEXT
       end
     end
 
+    context "two files with same prefix root" do
+      let(:stages_root) { 'config/two_files_with_same_prefix' }
+
+      it "should display configurations" do
+        subject.should == <<-TEXT
+cap qa   # Load qa configuration
+cap qa1  # Load qa1 configuration
+TEXT
+      end
+    end
+
     context "root with nested directory and two files inside" do
       let(:stages_root) { 'config/nested' }
       it {
