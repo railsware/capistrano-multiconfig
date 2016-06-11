@@ -9,6 +9,15 @@ namespace :load do
   end
 end
 
+if Gem::Version.new(Capistrano::VERSION) >= Gem::Version.new('3.5.0')
+  require "airbrussh/capistrano"
+
+  Airbrussh.configure do |airbrussh|
+    airbrussh.banner = false
+    airbrussh.command_output = true
+  end
+end
+
 stages.each do |stage|
   Rake::Task.define_task(stage) do
 
