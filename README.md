@@ -123,6 +123,10 @@ Specify in `Capfile`:
     $ bundle install
     $ rspec -fs spec
 
+## Authors
+
+* [Andriy Yanko](http://ayanko.github.io)
+
 ## License
 
 * Copyright (c) 2013 Railsware [www.railsware.com](http://www.railsware.com)
