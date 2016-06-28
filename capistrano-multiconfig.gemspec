@@ -3,7 +3,7 @@ $:.push File.expand_path("../lib", __FILE__)
 
 Gem::Specification.new do |s|
   s.name        = "capistrano-multiconfig"
-  s.version     = "3.0.9"
+  s.version     = "3.0.10"
   s.authors     = ["Andriy Yanko"]
   s.email       = ["andriy.yanko@gmail.com"]
   s.homepage    = "https://github.com/railsware/capistrano-multiconfig"
