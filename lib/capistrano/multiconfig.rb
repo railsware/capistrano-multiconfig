@@ -47,9 +47,6 @@ stages.each do |stage|
       load(file) if File.exists?(file)
     end
 
-    # Load SCM tasks
-    load "capistrano/#{fetch(:scm)}.rb"
-
     # Set locale
     I18n.locale = fetch(:locale, :en)
 
