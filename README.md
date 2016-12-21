@@ -136,4 +136,4 @@ Specify in `Capfile`:
 
 * [capistrano](https://github.com/capistrano/capistrano)
 * [caphub](https://github.com/railsware/caphub)
-
+* [capistrano_multiconfig_parallel](https://github.com/bogdanRada/capistrano_multiconfig_parallel)
