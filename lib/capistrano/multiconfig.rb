@@ -46,6 +46,13 @@ stages.each do |stage|
       file = "#{path}.rb"
       load(file) if File.exists?(file)
     end
+    
+    # Load SCM tasks
+    if Gem::Version.new(Capistrano::VERSION) >= Gem::Version.new('3.7.0')
+      configure_scm
+    else
+      load "capistrano/#{fetch(:scm)}.rb"
+    end
 
     # Set locale
     I18n.locale = fetch(:locale, :en)
