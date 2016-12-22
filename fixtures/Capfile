@@ -2,6 +2,12 @@ set :stages_root, ENV.fetch('STAGES_ROOT')
 
 require 'capistrano/multiconfig'
 
+if Gem::Version.new(Capistrano::VERSION) >= Gem::Version.new('3.7.0')
+  require 'capistrano/scm/plugin'
+  class NoSCM < Capistrano::SCM::Plugin; end
+  install_plugin NoSCM
+end
+
 task :hello_world do
   puts fetch(:message, "hello")
 end
