@@ -1,5 +1,7 @@
 require 'capistrano/multiconfig/dsl'
 
+require "capistrano/immutable_task"
+
 include Capistrano::DSL
 include Capistrano::Multiconfig::DSL
 
@@ -26,6 +28,8 @@ stages.each do |stage|
 
     # Load defaults variables
     invoke 'load:defaults'
+
+    Rake.application["load:defaults"].extend(Capistrano::ImmutableTask)
 
     # Load stage configuration(s).
     #
