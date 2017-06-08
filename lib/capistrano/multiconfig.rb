@@ -1,5 +1,6 @@
 require 'capistrano/multiconfig/dsl'
 
+require "capistrano/doctor"
 require "capistrano/immutable_task"
 
 include Capistrano::DSL
