@@ -12,7 +12,15 @@ describe "integration" do
 
     context "empty root" do
       let(:stages_root) { 'config/empty' }
-      it { should == "" }
+      it "should display configurations" do
+        subject.should == <<-TEXT
+cap doctor              # Display a Capistrano troubleshooting report (all doctor: tasks)
+cap doctor:environment  # Display Ruby environment details
+cap doctor:gems         # Display Capistrano gem versions
+cap doctor:servers      # Display the effective servers configuration
+cap doctor:variables    # Display the values of all Capistrano variables
+TEXT
+      end
     end
 
     context "two files root" do
@@ -20,8 +28,13 @@ describe "integration" do
 
       it "should display configurations" do
         subject.should == <<-TEXT
-cap production  # Load production configuration
-cap staging     # Load staging configuration
+cap doctor              # Display a Capistrano troubleshooting report (all doctor: tasks)
+cap doctor:environment  # Display Ruby environment details
+cap doctor:gems         # Display Capistrano gem versions
+cap doctor:servers      # Display the effective servers configuration
+cap doctor:variables    # Display the values of all Capistrano variables
+cap production          # Load production configuration
+cap staging             # Load staging configuration
 TEXT
       end
     end
@@ -31,8 +44,13 @@ TEXT
 
       it "should display configurations" do
         subject.should == <<-TEXT
-cap qa   # Load qa configuration
-cap qa1  # Load qa1 configuration
+cap doctor              # Display a Capistrano troubleshooting report (all doctor: tasks)
+cap doctor:environment  # Display Ruby environment details
+cap doctor:gems         # Display Capistrano gem versions
+cap doctor:servers      # Display the effective servers configuration
+cap doctor:variables    # Display the values of all Capistrano variables
+cap qa                  # Load qa configuration
+cap qa1                 # Load qa1 configuration
 TEXT
       end
     end
@@ -41,8 +59,13 @@ TEXT
       let(:stages_root) { 'config/nested' }
       it {
         should == <<-TEXT
-cap app:production  # Load app:production configuration
-cap app:staging     # Load app:staging configuration
+cap app:production      # Load app:production configuration
+cap app:staging         # Load app:staging configuration
+cap doctor              # Display a Capistrano troubleshooting report (all doctor: tasks)
+cap doctor:environment  # Display Ruby environment details
+cap doctor:gems         # Display Capistrano gem versions
+cap doctor:servers      # Display the effective servers configuration
+cap doctor:variables    # Display the values of all Capistrano variables
 TEXT
       }
     end
@@ -51,10 +74,15 @@ TEXT
       let(:stages_root) { 'config/two_nested' }
       it {
         should == <<-TEXT
-cap api:production  # Load api:production configuration
-cap api:staging     # Load api:staging configuration
-cap app:production  # Load app:production configuration
-cap app:staging     # Load app:staging configuration
+cap api:production      # Load api:production configuration
+cap api:staging         # Load api:staging configuration
+cap app:production      # Load app:production configuration
+cap app:staging         # Load app:staging configuration
+cap doctor              # Display a Capistrano troubleshooting report (all doctor: tasks)
+cap doctor:environment  # Display Ruby environment details
+cap doctor:gems         # Display Capistrano gem versions
+cap doctor:servers      # Display the effective servers configuration
+cap doctor:variables    # Display the values of all Capistrano variables
 TEXT
       }
     end
@@ -63,8 +91,13 @@ TEXT
       let(:stages_root) { 'config/nested_with_shared_file' }
       it {
         should == <<-TEXT
-cap app:production  # Load app:production configuration
-cap app:staging     # Load app:staging configuration
+cap app:production      # Load app:production configuration
+cap app:staging         # Load app:staging configuration
+cap doctor              # Display a Capistrano troubleshooting report (all doctor: tasks)
+cap doctor:environment  # Display Ruby environment details
+cap doctor:gems         # Display Capistrano gem versions
+cap doctor:servers      # Display the effective servers configuration
+cap doctor:variables    # Display the values of all Capistrano variables
 TEXT
       }
     end
@@ -73,9 +106,14 @@ TEXT
       let(:stages_root) { 'config/nested_with_another_file' }
       it {
         should == <<-TEXT
-cap app:production  # Load app:production configuration
-cap app:staging     # Load app:staging configuration
-cap deploy          # Load deploy configuration
+cap app:production      # Load app:production configuration
+cap app:staging         # Load app:staging configuration
+cap deploy              # Load deploy configuration
+cap doctor              # Display a Capistrano troubleshooting report (all doctor: tasks)
+cap doctor:environment  # Display Ruby environment details
+cap doctor:gems         # Display Capistrano gem versions
+cap doctor:servers      # Display the effective servers configuration
+cap doctor:variables    # Display the values of all Capistrano variables
 TEXT
       }
     end
@@ -84,9 +122,14 @@ TEXT
       let(:stages_root) { 'config/nested_with_shared_and_another_file' }
       it {
         should == <<-TEXT
-cap app:production  # Load app:production configuration
-cap app:staging     # Load app:staging configuration
-cap deploy          # Load deploy configuration
+cap app:production      # Load app:production configuration
+cap app:staging         # Load app:staging configuration
+cap deploy              # Load deploy configuration
+cap doctor              # Display a Capistrano troubleshooting report (all doctor: tasks)
+cap doctor:environment  # Display Ruby environment details
+cap doctor:gems         # Display Capistrano gem versions
+cap doctor:servers      # Display the effective servers configuration
+cap doctor:variables    # Display the values of all Capistrano variables
 TEXT
       }
     end
@@ -95,8 +138,13 @@ TEXT
       let(:stages_root) { 'config/with_foreign_file' }
       it {
         should == <<-TEXT
-cap production  # Load production configuration
-cap staging     # Load staging configuration
+cap doctor              # Display a Capistrano troubleshooting report (all doctor: tasks)
+cap doctor:environment  # Display Ruby environment details
+cap doctor:gems         # Display Capistrano gem versions
+cap doctor:servers      # Display the effective servers configuration
+cap doctor:variables    # Display the values of all Capistrano variables
+cap production          # Load production configuration
+cap staging             # Load staging configuration
 TEXT
       }
     end
@@ -110,6 +158,11 @@ cap app:blog:production  # Load app:blog:production configuration
 cap app:blog:staging     # Load app:blog:staging configuration
 cap app:wiki:production  # Load app:wiki:production configuration
 cap app:wiki:qa          # Load app:wiki:qa configuration
+cap doctor               # Display a Capistrano troubleshooting report (all doctor: tasks)
+cap doctor:environment   # Display Ruby environment details
+cap doctor:gems          # Display Capistrano gem versions
+cap doctor:servers       # Display the effective servers configuration
+cap doctor:variables     # Display the values of all Capistrano variables
 TEXT
       }
     end
