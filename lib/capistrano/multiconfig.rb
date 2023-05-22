@@ -44,7 +44,7 @@ stages.each do |stage|
       paths << File.join(paths.last, segment)
     end.each do |path|
       file = "#{path}.rb"
-      load(file) if File.exists?(file)
+      load(file) if File.exist?(file)
     end
 
     # Set locale
